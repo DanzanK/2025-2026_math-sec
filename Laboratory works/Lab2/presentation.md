@@ -1,8 +1,8 @@
 ---
 ## Front matter
 lang: ru-RU
-title: Лабораторная работа №1
-subtitle:  Реализация шифра Цезаря с произвольным ключом k, реализация шифра Атбаш.
+title: Лабораторная работа №2
+subtitle:  Реализация шифров перестановки
 author: Кюнкриков Д.С.
   - 
 institute: Российский университет дружбы народов, Москва, Росиия
@@ -60,27 +60,28 @@ header-includes:
 
 ## Актуальность
 
-- Создание кода на Julia (шифра простой замены), чтобы понять принципы работы алгоритмов.
+- Создание кода на Julia (шифры перестановки), чтобы понять принципы работы алгоритмов.
 
 ## Объект и предмет исследования
 
-- Шифры простой замены (шифр Цезаря и шифр Атбаш)
-- Распределенная система управления версиями Git.
+- Шифры перестановки
+- Шифры маршрутное шифрование, шифрование с помощью решеток, таблица Виженера
 - Веб-сервис GitHub
 - Язык разметки Markdown
 
 ## Цели и задачи
 
-- Реализовать шифр Цезаря с произвольным ключом k, Реализовать шифр Атбаш
+- Реализовать шифры перестановки: маршрутное шифрование, шифрование с помощью решеток, таблица Виженера
 
 # Процесс выполнения работы
-## Реализация шифра Цезаря с произвольным ключом k на языке программирования Julia
+## Реализация маршрутного шифрования на языке программирования julia
 
 
 :::::::::::::: {.columns align=top}
 ::: {.column width="25%"}
 
-<img width="663" height="870" alt="image" src="https://github.com/user-attachments/assets/cf9a062c-bda3-40dc-bbce-703f8024e16a" />
+<img width="683" height="578" alt="image" src="https://github.com/user-attachments/assets/812643a3-9070-4662-a1c1-f26ca0941032" />
+
 
 :::
 ::::::::::::::
@@ -88,37 +89,73 @@ header-includes:
 :::::::::::::: {.columns align=top}
 ::: {.column width="25%"}
 
-<img width="541" height="376" alt="image" src="https://github.com/user-attachments/assets/d4d67576-5838-4004-b120-468a321c27c0" />
+<img width="486" height="313" alt="image" src="https://github.com/user-attachments/assets/45beb6b8-0886-42eb-a3a4-51eaca8ee702" />
+
 
 
 :::
 
 ::::::::::::::
 
-## Реализация шифра Атбаш на языке программирования Julia
+## Реализация шифрования с помощью решеток на языке программирования Julia
 
 :::::::::::::: {.columns align=top}
 ::: {.column width="25%"}
 
-<img width="648" height="825" alt="image" src="https://github.com/user-attachments/assets/503df9d2-d89a-41c2-a099-6d576bf6deef" />
+
+<img width="802" height="894" alt="image" src="https://github.com/user-attachments/assets/11c3f410-4eaf-4a7a-875b-0e501e5a27f5" />
 
 
 :::
 ::: {.column width="25%"}
 
-<img width="598" height="218" alt="image" src="https://github.com/user-attachments/assets/d4e6a67e-6b35-43de-abbc-0b264428d180" />
+
+<img width="558" height="206" alt="image" src="https://github.com/user-attachments/assets/88835227-b54b-433f-bc84-906aa9dec740" />
 
 
 :::
 
 ::::::::::::::
 
+
+
+## Реализация таблицы Виженера на языке программирования Julia
+
+:::::::::::::: {.columns align=top}
+::: {.column width="25%"}
+
+
+<img width="574" height="491" alt="image" src="https://github.com/user-attachments/assets/f8feb27c-2279-4b24-95d2-3232098aab57" />
+
+
+
+:::
+::: {.column width="25%"}
+
+
+<img width="553" height="545" alt="image" src="https://github.com/user-attachments/assets/3a81d3fa-335c-487f-8624-e85ca6529bab" />
+
+
+
+:::
+
+
+::: {.column width="25%"}
+
+
+<img width="485" height="310" alt="image" src="https://github.com/user-attachments/assets/8a3d2e75-0511-4b9d-b368-8d9dea7c0d3d" />
+
+
+
+:::
+
+::::::::::::::
 
 # Результаты
 
-- Выполнены все необходимые действия для реализации задач лабораторной работы.
+- Выполнены все необходимы действия для реализации задач лабораторной работы
 
 ## Вывод
 
-Реализованы шифры простой замены (шифр Цезаря и шифр атбаш)
+Реализованы шифры перестановки: маршрутное шифрование, шифрование с помощью решеток, таблица Виженера
 
