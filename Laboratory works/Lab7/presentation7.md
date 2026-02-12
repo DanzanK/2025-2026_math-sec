@@ -137,7 +137,21 @@ a^x \equiv b \ (\text{mod} \ p)
 :::
 ::::::::::::::
 
+:::::::::::::: {.columns align=top}
+::: {.column width="25%"}
 
+
+
+
+
+<img width="572" height="314" alt="image" src="https://github.com/user-attachments/assets/85c5984e-87ae-4ba7-9fbc-c92f3cdf9dc2" />
+
+
+
+
+
+:::
+::::::::::::::
 
 
 
