@@ -15,13 +15,12 @@ format:
 
 ---
 
-''' {julia}
-#| label: cipher-program
-#| code-line-numbers: "true"
-#| warning: false
-#| eval: false
+
+
 
 ## Шифр Цезаря
+
+``` Julia
 
 function main()
     # задаем алфавит для шифрования
@@ -75,11 +74,11 @@ function main()
         println("Result $operation: $output")
     end
 end
-
+```
 
 ## Шифр Атбаш
 
-
+``` Julia
 # функция шифра Атбаш принимающая на вход алфавит и заданное сообщение
 function Atbash(message::AbstractString, alphabet::Vector{Char})
     n = length(alphabet)
@@ -123,3 +122,4 @@ function main()
         println("Result $operation: $output")
     end
 end
+```
