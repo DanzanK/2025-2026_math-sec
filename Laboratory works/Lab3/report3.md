@@ -1,49 +1,6 @@
----
-## Front matter
-lang: ru-RU
-title: Лабораторная работа №2
-subtitle:  Реализация шифров перестановки
-author: Кюнкриков Д.С.
-  - 
-institute: Российский университет дружбы народов, Москва, Россия
-  - 
-date:
-- 
+# Лабораторная работа №2
+## Реализация шифров перестановки
 
-## i18n babel
-babel-lang: russian
-babel-otherlangs: english
-
-## Fonts
-mainfont: PT Serif
-romanfont: PT Serif
-sansfont: PT Sans
-monofont: PT Mono
-mainfontoptions: Ligatures=TeX
-romanfontoptions: Ligatures=TeX
-sansfontoptions: Ligatures=TeX,Scale=MatchLowercase
-monofontoptions: Scale=MatchLowercase,Scale=0.9
-
-## Formatting pdf
-toc: false
-toc-title: Содержание
-slide_level: 2
-aspectratio: 169
-section-titles: true
-theme: metropolis
-header-includes:
- - \metroset{progressbar=frametitle,sectionpage=progressbar,numbering=fraction}
- - '\makeatletter'
- - '\beamer@ignorenonframefalse'
- - '\makeatother'
----
-
-# Информация
-
-## Докладчик
-
-:::::::::::::: {.columns align=center}
-::: {.column width="70%"}
 
   * Кюнкриков Даниил Саналович
   * студент уч. группы НПИмд-01-24
@@ -52,9 +9,7 @@ header-includes:
   * https://github.com/DanzanK/2025-2026_math-sec/tree/main
 
 
-:::
 
-::::::::::::::
 
 ## Объект и предмет исследования
 
