@@ -1,4 +1,4 @@
-# Лабораторная работа №4
+# Лабораторная работа №5
 ## Вычисление наибольшего общего делителя
 
 
@@ -13,195 +13,183 @@
 
 ## Объект и предмет исследования
 
-- Объект исследования - Алгоритмы вычисления наибольшего общего делителя (НОД)
+- Объект исследования - Алгоритмы проверки чисел на простоту
 - Предмет исследования - алгоритмы:
-  - Алгоритм Евклида
-  - Бинарный алгоритм Евклида
-  - Расширенный алгоритм Евклида
-  - Расширенный бинарный алгоритм Евклида
+  - Тест Ферма
+  - вычисление символа Якоби
+  - Тест Соловэя-Штрассена
+  - Тест Миллера-Рабина
 
 
 ## Цели и задачи
-- Цель работы: Программная реализация алгоритмов вычисления наибольшего общего делителя на языке программирования python
+- Цель работы: Программная реализация алгоритмов проверки чисел на простоту на языке программирования python
 - Задачи: реализовать программно алгоритмы:
-  - Алгоритм Евклида
-  - Бинарный алгоритм Евклида
-  - Расширенный алгоритм Евклида
-  - Расширенный бинарный алгоритм Евклида
+  - Тест Ферма
+  - вычисление символа Якоби
+  - Тест Соловэя-Штрассена
+  - Тест Миллера-Рабина
 - продемонстрировать работу алгоритмов
 
 
 # Теоретическая часть
-Наибольший одбщий делитель (ГОД) двух целых чисел a и b - наибольшее целое число d на которое делятся и a и b без отстатка
-Соглано основной лемме Евклида: a = qb + r
-  ||
-  \/
-из этого следует, что $\text{НОД}(a, b) = \text{НОД}(b, r)$
-- Алгоритм Евклида рекурсивно применяет данную лемму, заменяя пару (a, b) парой $(b, a \mod b)$ пока остаток не равен нулю
-Последний ненулево остаток является НОД
-- Бинарный алгоритм Евклида оптимизирует процесс для вычислительных машин, заменяя дорогостоящую операцию деления на быстрые битовые сдвиги 9деление на 2) и вычитание
-Он использует следующие свойства:
-* $\text{НОД}(a, b) = 2 \cdot \text{НОД}(a/2, b/2)$, если a, b четные
-* $\text{НОД}(a, b) = \text{НОД}(a, b/2)$,  если a нечетное, b четное
-* $\text{НОД}(a, b) = \text{НОД}(a-b, b)$, если a, b нечетные
-- Расширенный алгоритм Евклида не только находит d = \text{НОД}(a, b)$, но и находит пару чисел (x, y), известные как коэффициенты Безу, которые удовлетворяют тождеству:
-$$ax + by = d$$
-Это тождество является представлением НОД в виде линейной комбинации исходных чисел
+Алгоритмы проверки на простоту можно разделить на детерминированные и вероятностные.
+- Детерминированный алгоритм всегда гарантированно решает задачу
+- Вероятностный алгоритм использует генератор случайных чисел и дает не гарантированно точный ответ.
+
+Схема вероятностного теста:
+1. Для числа n выбирается случайное свидетельствующее число a (1<a<n)
+2. Проверяется некоторое математическое условие
+3. Если n не проходит тест по основанию a, алгоритм выдает что число n составное
+4. Если n проходит тест по основанию a, алгоритм выдает что число n вероятно простое
 
 
 # Процесс выполнения работы
-## Реализация алгоритма Евклида
+## Реализация теста Ферма
 
 ``` python
 
-def euclidean_gcd(a,b):
-    r_prev, r_curr = a,b
+def fermat_test_single(n: int) -> str:
+    a = random.randint(2, n -2)
+    r = pow(a, n -1, n)
+    return "possible prime" if r == 1 else "composite"
+
+def run_feramn_test(n: int, t: int) -> str:
+    if n< 5:
+        return "input должен быть >= 5"
+    if n % 2 == 0:
+        return "composite even"
+    for _ in range(t):
+        if fermat_test_single(n) == "composite":
+            return "composite"
+    return "possible prime"
+```
+## Реализация алгоритма вычисления символа Якоби
+
+``` python
+
+def jacobi(a:int, n: int) -> int:
+    if n <= 0 or n % 2 == 0:
+        raise ValueError("n должно бытьнечетным и положительным")
+    a %= n
+    result = 1
+    while a != 0:
+        while a % 2 == 0:
+            a //= 2
+            r = n % 8
+            if r == 3 or r == 5:
+                result = - result
+        a, n = n, a
+
+        if a % 4 == 3 and n % 4 == 3:
+            result = -result
+        a %= n
+
+    return result if n == 1 else 0
+
+
+```
+## Реализация теста Соловэя-Штрассена
+
+``` python
+
+def solov_strass_test_single(n: int) -> str:
+    a = random.randint(2, n-2)
+    r = pow(a, (n-1) // 2, n)
+    if r != 1 and r != n-1:
+        return "composite"
     
-    while r_curr !=0:
-        r_next = r_prev % r_curr
-        r_prev = r_curr
-        r_curr = r_next
+    s = jacobi(a,n)
+    return "possible prime" if r == (s+n) % n else "composite"
 
-    d = r_prev
-    return d
-
-vala = 12345
-valb = [24690, 54321, 12541]
-for val in valb:
-    print(f"GCD({vala}, {val}) = {euclidean_gcd(vala, val)}")
-
-```
-## Реализация бинарного алгоритма Евклида
-
-``` python
-
-def binareuc_gcd(a,b):
-    g = 1
-
-    while a%2 == 0 and b%2 ==0:
-        a //=2
-        b //= 2
-        g *= 2
-
-    u, v = a, b
-
-    while u != 0:
-        while u% 2 ==0:
-            u //= 2
-        while v% 2 ==0:
-            v //= 2
-        if u >= v:
-            u = u-v
-        else:
-            v = v-u
-
-    d = g * v
-
-    return d 
-
-vala = 12345
-valb = [24690, 54321, 12541]
-for val in valb:
-    print(f"GCD({vala}, {val}) = {binareuc_gcd(vala, val)}")
-
-
-```
-## Реализация расширенного алгоритма Евклида
-
-``` python
-
-def extendedeuc_gcd(a,b):
-    r_prev, r_curr = a,b
-    x_prev, x_curr = 1, 0
-    y_prev, y_curr = 0, 1
-
-    while r_curr !=0:
-        q = r_prev // r_curr
-        r_next = r_prev % r_curr
-        x_next = x_prev - q * x_curr
-        y_next = y_prev - q * y_curr
-
-        r_prev, r_curr = r_curr, r_next
-        x_prev, x_curr = x_curr, x_next
-        y_prev, y_curr = y_curr, y_next
-
-    d, x, y = r_prev, x_prev, y_prev
-    return d, x, y_curr
-
-d1, x1, y1 = extendedeuc_gcd(105,91)
-d2, x2, y2 = extendedeuc_gcd(154, d1)
-print(f"GDC(105,91) = {d1, x1, y1}")
-print(f"final GDC(154,7) = {d2, x2, y2}")
-
-```
-## Реализация расширенного бинарношго алгоритма Евклида
-
-``` python
-
-def extendbineuc_gcd(a,b):
-    g = 1
-    while a% 2 ==0 and b%2 == 0:
-        a //=2
-        b //= 2
-        g *= 2
+def run_solov_strass_test(n: int, t: int) -> str:
+    if n < 5:
+        return "input должен быть >=5"
+    if n%2 ==0:
+        return "composite even"
+    for _ in range(t):
+        if solov_strass_test_single(n) == "composite":
+            return "composite"
+    return " possible prime"
     
-    u, v = a, b
-    A, B = 1, 0
-    C, D = 0, 1
 
-    while u != 0:
-        while u % 2==0:
-            u //=2
-            if A % 2 == 0 and B % 2 == 0:
-                A //= 2
-                B //= 2
-            else:
-                A = (A + b) // 2
-                B = (B - a) // 2
-            print("v: " + str(v))
+```
+## Реализация теста Миллера-Рабина
 
-        while v%2==0:
-            v //= 2
-            if C % 2 == 0 and D % 2 == 0:
-                C //= 2
-                D //= 2
-            else:
-                C = (C+b) // 2
-                D = (D-a) // 2
-            print("u: " + str(u))
+``` python
 
-        if u >= v:
-            u = u- v
-            A = A - C
-            B = B - D
+def miller_rabin_test_single(n: int) -> str:
+    s = 0
+    r = n-1
+    while r%2 ==0:
+        s += 1
+        r //= 2
+    a = random.randint(2, n-2)
+    y = pow(a,r,n)
+
+    if y != 1 and y != n-1:
+        j =1
+        while j <= s - 1 and y != n - 1:
+            y = pow(y,2,n)
+            if y == 1:
+                return "composite"
+            j += 1
+        if y != n - 1:
+            return "composite"
+    return "possible prime"
+
+def run_miller_rabin_test(n: int, t: int) -> str:
+    if n < 5:
+        return "input должен быть >=5"
+    if n%2 ==0:
+        return "composite even"
+    for _ in range(t):
+        if miller_rabin_test_single(n) == "composite":
+            return "composite"
+    return " possible prime"
+
+```
+## Код запуска тестов алгоритмов
+
+``` python
+
+if __name__ == "__main__":
+    try:
+        n_input = input("введи n:")
+        n = int(n_input)
+        t_input = input("введи t:")
+        t = int(t_input)
+
+        if n < 5 or n % 2 ==0:
+            print("Err n < 5")
+            if n == 2 or n ==3:
+                print("n - простое число")
+            elif n % 2 == 0:
+                print("n - составное число")
+        elif t < 1:
+            print("t < 1")
         else:
-            v = v - u
-            C = C - A
-            D = D - B
-    d = g * v
-    x = C
-    y = D
-    return d, x, y
+            result_ferma = run_feramn_test(n,t)
+            print(f"тест Ферма: \t\t{result_ferma}")
+            result_solov_strass = run_solov_strass_test(n,t)
+            print(f"тест Соловэя-Штрассена: \t{result_solov_strass}")
+            result_mill_rab = run_miller_rabin_test(n,t)
+            print(f"тест Миллера-Рабина: \t{result_mill_rab}")
 
-dbin,xbin,ybin = extendbineuc_gcd(105, 91)
-print(f"GDC(105,91) = {dbin,xbin,ybin}")
+            if result_mill_rab=="possible prime":
+                print("n - вероятно простое")
+            else:
+                print("составное")
+    except ValueError:
+        print("Error")
 
 ```
 ## Результат работы программы
 ``` python
-GCD(12345, 24690) = 12345
-GCD(12345, 54321) = 3
-GCD(12345, 12541) = 1
-GCD(12345, 24690) = 12345
-GCD(12345, 54321) = 3
-GCD(12345, 12541) = 1
-GDC(105,91) = (7, -6, -15)
-final GDC(154,7) = (7, 0, -22)
-v: 91
-u: 7
-u: 7
-u: 7
-GDC(105,91) = (7, -6, 7)
+введи n:131
+введи t:20
+тест Ферма:             possible prime
+тест Соловэя-Штрассена:          possible prime
+тест Миллера-Рабина:     possible prime 
 ```
 ## Вывод
-В ходе выполнения лабораторной работы были успешно реализованы все четыре алгоритма вычисления НОД
+В ходе выполнения лабораторной работы были успешно реализованы все четыре алгоритма по проверки чисел на простоту. Разаработанные функции корректно классифицируют числа как "составные" и "вероятно простые" 
